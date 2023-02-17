@@ -1,0 +1,56 @@
+using System;
+using System.IO;
+using System.Text;
+namespace Lecture_task
+{
+    class Programm
+    {
+        static List<char> list = new List<char>();
+        static int len_list = 0, z_len = 1;
+        static int F(int n)
+        {
+            int fn = 0;
+            string p = "";
+            if (n <= 5)
+            {
+                fn = n;
+            }
+            else if (n > 5 && (float)n / 8.0 == n / 8)
+            {
+                fn = n + F(n / 2 - 3);
+            }
+            else
+            {
+                p = Convert.ToString(n + 4);
+                if (!list.Contains(p[p.Length - 1]))
+                {
+                    list.Add(p[p.Length - 1]);
+                }
+                len_list = list.Count;
+                if (len_list == z_len && z_len != 1)
+                {
+                    return 0;
+                }
+                else
+                {
+                    z_len = len_list;
+                    fn = n + F(n + 4);
+                }
+            }
+            return fn;
+        }
+        static void Main()
+        {
+            int answ = 0;
+            for (int i = 0; i < 10000000; i++)
+            {
+                int n = i;
+                if (F(n) != n && F(n) != 0)
+                {
+                    answ = n;
+                }
+            }
+            Console.WriteLine(answ);
+        }
+    }
+}
